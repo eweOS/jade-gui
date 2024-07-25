@@ -26,7 +26,7 @@ gi.require_version("GtkSource", "5")
 gi.require_version("Vte", "3.91")
 
 
-from gi.repository import Gtk, Gio, Adw
+from gi.repository import Gtk, Gio, Adw, GLib
 from jade_gui.window import JadeGuiWindow
 
 
@@ -35,8 +35,19 @@ class Jade_guiApplication(Adw.Application):
 
     def __init__(self):
         super().__init__(
-            application_id="al.getcryst.jadegui", flags=Gio.ApplicationFlags.FLAGS_NONE
+            application_id="moe.ewe.os.jadegui", flags=Gio.ApplicationFlags.HANDLES_COMMAND_LINE
         )
+
+        self.add_main_option(
+            "full-screen",
+            ord("f"),
+            GLib.OptionFlags.OPTIONAL_ARG,
+            GLib.OptionArg.NONE,
+            "Launch at full screen mode",
+            None,
+        )
+        self._fullscreen = False
+
         self.create_action("quit", self.quit, ["<primary>q"])
         self.create_action("about", self.on_about_action)
         self.create_action("preferences", self.on_preferences_action)
@@ -50,6 +61,10 @@ class Jade_guiApplication(Adw.Application):
         win = self.props.active_window
         if not win:
             win = JadeGuiWindow(application=self)
+
+        if self._fullscreen:
+            win.fullscreen()
+
         win.present()
 
     def on_about_action(self, widget, _):
@@ -60,6 +75,14 @@ class Jade_guiApplication(Adw.Application):
     def on_preferences_action(self, widget, _):
         """Callback for the app.preferences action."""
         print("app.preferences action activated")
+
+    def do_command_line(self, cmdline):
+        options = cmdline.get_options_dict()
+        options = options.end().unpack()
+        if "full-screen" in options:
+            self._fullscreen = True
+        self.activate()
+        return 0           
 
     def create_action(self, name, callback, shortcuts=None):
         """Add an application action.

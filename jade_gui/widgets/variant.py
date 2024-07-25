@@ -21,7 +21,7 @@ from gi.repository import Gtk, GLib, Adw
 from gettext import gettext as _
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/widgets/variant.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/widgets/variant.ui")
 class KeyboardVariant(Adw.ActionRow):
     __gtype_name__ = "KeyboardVariant"
 

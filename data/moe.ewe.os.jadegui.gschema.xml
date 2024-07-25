@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="jade_gui">
-	<schema id="al.getcryst.jadegui" path="/al/getcryst/jadegui/">
+	<schema id="moe.ewe.os.jadegui" path="/moe/ewe/os/jadegui/">
 	</schema>
 </schemalist>

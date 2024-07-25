@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk" version="4.0"/>
-  <template class="DesktopEntry" parent="AdwActionRow">
-    <property name="title">DesktopEntry</property>
+  <template class="ExtraPkgEntry" parent="AdwActionRow">
+    <property name="title">ExtraPkgEntry</property>
     <property name="activatable-widget">select_button</property>
     <child>
       <object class="GtkBox">

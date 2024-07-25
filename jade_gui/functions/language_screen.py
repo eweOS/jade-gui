@@ -22,7 +22,7 @@ from gettext import gettext as _
 from jade_gui.classes.jade_screen import JadeScreen
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/language_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/language_screen.ui")
 class LanguageScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "LanguageScreen"
 
@@ -46,14 +46,11 @@ class LanguageScreen(JadeScreen, Adw.Bin):
         self.next_page_button.connect("clicked", self.carousel_next)
 
     def selected_language(self, widget, row):
-        print(row)
         if row is not None or row is not self.language_search:
-            print(row.get_title())
             self.chosen_language = row
-
             self.set_valid(True)
         else:
-            print("row is none!!")
+            print("language row is none!")
 
     def search_languages(self, *args):
         terms = self.language_entry_search.get_text()

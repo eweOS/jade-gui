@@ -31,13 +31,13 @@ subdir('classes')
 subdir('locales')
 subdir('utils')
 subdir('scripts')
+subdir('presets')
 
 jade_gui_sources = [
   '__init__.py',
   'main.py',
   'window.py',
   'keymaps.py',
-  'desktops.py',
   'manualpartitioning.py'
 ]
 

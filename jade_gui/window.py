@@ -22,6 +22,7 @@ import socket
 from gi.repository import Gtk, Gdk, GLib, Adw
 from jade_gui.classes.partition import Partition
 from jade_gui.widgets.desktop import DesktopEntry
+from jade_gui.widgets.extrapkg import ExtraPkgEntry,ExtraPkgGroup
 from jade_gui.widgets.disk import DiskEntry
 from jade_gui.widgets.partition import PartitionEntry
 from jade_gui.functions.keyboard_screen import KeyboardScreen
@@ -30,6 +31,7 @@ from jade_gui.functions.locale_screen import LocaleScreen
 from jade_gui.functions.user_screen import UserScreen
 from jade_gui.functions.desktop_screen import DesktopScreen
 from jade_gui.functions.misc_screen import MiscScreen
+from jade_gui.functions.extrapkg_screen import ExtraPkgScreen
 from jade_gui.functions.partition_screen import PartitionScreen
 from jade_gui.functions.summary_screen import SummaryScreen
 from jade_gui.functions.install_screen import InstallScreen
@@ -38,25 +40,25 @@ from jade_gui.functions.welcome_screen import WelcomeScreen
 from jade_gui.classes.jade_screen import JadeScreen
 from jade_gui.locales.locales_list import locations
 from jade_gui.keymaps import keymaps
-from jade_gui.desktops import desktops
+from jade_gui.presets.desktops import desktops
+from jade_gui.presets.packages import packages
 from jade_gui.utils import disks
 from jade_gui.utils.threading import RunAsync
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/window.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/window.ui")
 class JadeGuiWindow(Gtk.ApplicationWindow):
     __gtype_name__ = "JadeGuiWindow"
 
     event_controller = Gtk.EventControllerKey.new()
     carousel = Gtk.Template.Child()
 
-    #   quit_button = Gtk.Template.Child()
     about_button = Gtk.Template.Child()
-    # no_internet = Gtk.Template.Child()
 
     next_button = Gtk.Template.Child()
     back_button = Gtk.Template.Child()
     revealer = Gtk.Template.Child()
+    toast_overlay = Gtk.Template.Child()
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -70,6 +72,7 @@ class JadeGuiWindow(Gtk.ApplicationWindow):
             window=self, set_valid=self.page_valid, **kwargs
         )
         self.misc_screen = MiscScreen(window=self, set_valid=self.page_valid, **kwargs)
+        self.extrapkg_screen = ExtraPkgScreen(window=self, set_valid=self.page_valid, **kwargs)
         self.desktop_screen = DesktopScreen(
             window=self, set_valid=self.page_valid, **kwargs
         )
@@ -101,6 +104,7 @@ class JadeGuiWindow(Gtk.ApplicationWindow):
         self.carousel.append(self.user_screen)
         self.carousel.append(self.desktop_screen)
         self.carousel.append(self.misc_screen)
+        self.carousel.append(self.extrapkg_screen)
         self.carousel.append(self.partition_screen)
         # self.carousel.append(self.manual_partition)
         self.carousel.append(self.summary_screen)
@@ -119,12 +123,12 @@ class JadeGuiWindow(Gtk.ApplicationWindow):
         ### Test desktops
         firstdesktop = DesktopEntry(
             window=self, desktop=desktops[0], button_group=None, **kwargs
-        )  # Manually specifying onyx since the other entries need a button group to attach to
+        )  # the other entries need a button group to attach to
         self.desktop_screen.list_desktops.append(firstdesktop)
         self.desktop_screen.chosen_desktop = (
-            self.desktop_screen.list_desktops.get_row_at_index(0).get_title()
+            self.desktop_screen.list_desktops.get_row_at_index(0).entry
         )
-        self.desktop_screen.list_desktops.select_row(firstdesktop)
+
         for desktop in desktops:
             if desktop != desktops[0]:
                 self.desktop_screen.list_desktops.append(
@@ -132,6 +136,25 @@ class JadeGuiWindow(Gtk.ApplicationWindow):
                         window=self,
                         desktop=desktop,
                         button_group=firstdesktop.select_button,
+                        **kwargs
+                    )
+                )
+        ### ---------
+
+        ### Test extrapkgs
+        for package_group in packages:
+            package_group_pref = ExtraPkgGroup(
+                window=self,
+                title=package_group["title"],
+                subtitle=package_group["subtitle"],
+                **kwargs
+            )
+            self.extrapkg_screen.list_package_groups.add(package_group_pref)
+            for package in package_group["items"]:
+                package_group_pref.list_packages.append(
+                    ExtraPkgEntry(
+                        window=self,
+                        package=package,
                         **kwargs
                     )
                 )
@@ -207,6 +230,10 @@ class JadeGuiWindow(Gtk.ApplicationWindow):
         else:
             self.next_button.set_visible(disable_next)
             self.back_button.set_visible(disable_back)
+        if page == self.summary_screen:
+            self.next_button.set_css_classes(["destructive-action"])
+        else:
+            self.next_button.set_css_classes(["suggested-action"])
 
         page.on_show()
 
@@ -242,14 +269,14 @@ class JadeGuiWindow(Gtk.ApplicationWindow):
             transient_for=self,
             modal=True,
             parent=self,
-            text="Do you want to try\nCrystal without installing?",
+            text="Do you want to try\neweOS without installing?",
             buttons=Gtk.ButtonsType.YES_NO,
         )
         dialog.connect("response", handle_response)
         dialog.present()
 
     def show_about(self, *_):
-        builder = Gtk.Builder.new_from_resource("/al/getcryst/jadegui/about.ui")
+        builder = Gtk.Builder.new_from_resource("/moe/ewe/os/jadegui/about.ui")
         about_window = builder.get_object("aboutWindow")
         about_window.set_transient_for(self)
         about_window.present()

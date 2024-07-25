@@ -9,6 +9,7 @@ jade_gui_sources = [
     'user_screen.py',
     'desktop_screen.py',
     'misc_screen.py',
+    'extrapkg_screen.py',
     'partition_screen.py',
     'summary_screen.py',
     'install_screen.py',

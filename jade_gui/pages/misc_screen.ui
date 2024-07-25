@@ -38,12 +38,12 @@
                             <property name="selectable">false</property>
                             <property
                               name="title"
-                              translatable="true">Timeshift</property>
+                              translatable="true">mimalloc</property>
                             <property
                               name="subtitle"
-                              translatable="true">Support snapshots as a means to roll back to earlier states of the system.</property>
+                              translatable="true">Preload mimalloc allocator globally to improve memory allocation performance.</property>
                             <child>
-                              <object class="GtkSwitch" id="timeshift_switch">
+                              <object class="GtkSwitch" id="mimalloc_switch">
                                 <property name="valign">center</property>
                                 <property name="active">true</property>
                               </object>
@@ -56,12 +56,12 @@
                             <property name="selectable">false</property>
                             <property
                               name="title"
-                              translatable="true">Zramd</property>
+                              translatable="true">flatpak</property>
                             <property
                               name="subtitle"
-                              translatable="true">Creates a compressed area of Swap in RAM.</property>
+                              translatable="true">Install flatpak to provide more available apps.</property>
                             <child>
-                              <object class="GtkSwitch" id="zramd_switch">
+                              <object class="GtkSwitch" id="flatpak_switch">
                                 <property name="valign">center</property>
                                 <property name="active">true</property>
                               </object>

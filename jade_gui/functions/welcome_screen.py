@@ -24,7 +24,7 @@ from gettext import gettext as _
 from jade_gui.classes.jade_screen import JadeScreen
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/welcome_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/welcome_screen.ui")
 class WelcomeScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "WelcomeScreen"
 
@@ -44,7 +44,8 @@ class WelcomeScreen(JadeScreen, Adw.Bin):
         self.do_check_internet = True
 
     def check_internet(self):
-        while self.do_check_internet:
+        max_tries = 10
+        while self.do_check_internet and max_tries > 0:
             try:
                 urllib.request.urlopen("https://ping.archlinux.org", timeout=1)
                 self.online()
@@ -52,13 +53,18 @@ class WelcomeScreen(JadeScreen, Adw.Bin):
                     GLib.idle_add(self.allow_continue, True)
 
                 self.do_check_internet = False
-                print("internet!")
             except:
+                max_tries = max_tries - 1
                 GLib.idle_add(self.allow_continue, False)
-                print("no internet!")
             time.sleep(1)
 
     def allow_continue(self, allow: bool):
-        self.set_valid(allow)
-        self.next_button.set_sensitive(allow)
+        #still allows installation
+        self.set_valid(True)
+        #self.next_button.set_sensitive(allow)
+        if allow:
+            self.next_button.add_css_class("suggested-action")
+        else:
+            self.next_button.remove_css_class("suggested-action")
         self.no_internet.set_visible(not allow)
+        self.next_button.set_visible(True)

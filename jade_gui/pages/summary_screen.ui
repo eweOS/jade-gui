@@ -14,7 +14,7 @@
             <property name="vexpand">true</property>
             <property name="title" translatable="true">Summary</property>
             <property
-              name="description">Last chance to verify everything.</property>
+              name="description">Last chance to verify everything. Click 'Next' to install.</property>
             <property name="css-classes">jade_compact</property>
             <child>
               <object class="AdwPreferencesPage">
@@ -111,10 +111,15 @@
                           </object>
                         </child>
                         <child>
-                          <object class="AdwActionRow" id="sudo_label">
+                          <object class="AdwActionRow">
                             <property
                               name="title"
-                              translatable="true">sudo enabled/disabled</property>
+                              translatable="true">sudo</property>
+                            <child>
+                              <object class="GtkLabel" id="sudo_label">
+                                <property name="label">Unknown</property>
+                              </object>
+                            </child>
                             <child>
                               <object class="GtkButton" id="sudo_button">
                                 <property name="valign">center</property>
@@ -126,10 +131,15 @@
                           </object>
                         </child>
                         <child>
-                          <object class="AdwActionRow" id="root_label">
+                          <object class="AdwActionRow">
                             <property
                               name="title"
-                              translatable="true">root enabled/disabled</property>
+                              translatable="true">root</property>
+                            <child>
+                              <object class="GtkLabel" id="root_label">
+                                <property name="label">Unknown</property>
+                              </object>
+                            </child>
                             <child>
                               <object class="GtkButton" id="root_button">
                                 <property name="valign">center</property>
@@ -224,12 +234,12 @@
                       <object class="GtkListBox" id="misc_listbox">
                         <property name="selection-mode">none</property>
                         <child>
-                          <object class="AdwActionRow" id="timeshift_label">
+                          <object class="AdwActionRow" id="flatpak_label">
                             <property
                               name="title"
-                              translatable="true">timeshift enabled/disabled</property>
+                              translatable="true">flatpak Enabled/Disabled</property>
                             <child>
-                              <object class="GtkButton" id="timeshift_button">
+                              <object class="GtkButton" id="flatpak_button">
                                 <property name="valign">center</property>
                                 <property name="halign">center</property>
                                 <property
@@ -239,16 +249,79 @@
                           </object>
                         </child>
                         <child>
-                          <object class="AdwActionRow" id="zramd_label">
+                          <object class="AdwActionRow" id="mimalloc_label">
                             <property
                               name="title"
-                              translatable="true">zramd enabled/disabled</property>
+                              translatable="true">mimalloc Enabled/Disabled</property>
                             <child>
-                              <object class="GtkButton" id="zramd_button">
+                              <object class="GtkButton" id="mimalloc_button">
                                 <property name="valign">center</property>
                                 <property name="halign">center</property>
                                 <property
                                   name="icon-name">document-edit-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="boxed-list"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
+                    <property
+                      name="title"
+                      translatable="true">Extra Packages</property>
+                    <child>
+                      <object class="GtkListBox" id="extrapkg_listbox">
+                        <property name="selection-mode">none</property>
+                        <child>
+                          <object class="AdwActionRow" id="extrapkg_label">
+                            <property
+                              name="title"
+                              translatable="true">extra packages</property>
+                            <child>
+                              <object class="GtkButton" id="extrapkg_button">
+                                <property name="valign">center</property>
+                                <property name="halign">center</property>
+                                <property
+                                  name="icon-name">document-edit-symbolic</property>
+                              </object>
+                            </child>
+                          </object>
+                        </child>
+                        <style>
+                          <class name="boxed-list"/>
+                        </style>
+                      </object>
+                    </child>
+                  </object>
+                </child>
+                <child>
+                  <object class="AdwPreferencesGroup">
+                    <property
+                      name="title"
+                      translatable="true">Export Config (Advanced)</property>
+                    <child>
+                      <object class="GtkListBox">
+                        <property name="selection-mode">none</property>
+                        <child>
+                          <object class="AdwActionRow">
+                            <property
+                              name="title"
+                              translatable="true">Export Current Config</property>
+                            <property
+                              name="subtitle"
+                              translatable="true">Config file can be found at ~/.config/jade.json</property>
+                            <child>
+                              <object class="GtkButton" id="export_config_button">
+                                <property name="valign">center</property>
+                                <property name="halign">center</property>
+                                <property
+                                  name="icon-name">document-save-symbolic</property>
                               </object>
                             </child>
                           </object>

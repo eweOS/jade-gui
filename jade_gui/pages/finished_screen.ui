@@ -17,8 +17,8 @@
               translatable="true">Installation Completed!</property>
             <property
               name="description"
-              translatable="true">Reboot the device to start using Crystal Linux!</property>
-            <property name="icon-name">al.getcryst.jadegui</property>
+              translatable="true">Reboot the device to start using eweOS!</property>
+            <property name="icon-name">moe.ewe.os.jadegui</property>
             <property name="css-classes">jade_compact</property>
             <child>
               <object class="GtkBox">

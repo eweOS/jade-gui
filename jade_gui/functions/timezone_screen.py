@@ -31,7 +31,7 @@ import pytz
 from tzlocal import get_localzone_name
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/timezone/timezone_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/timezone/timezone_screen.ui")
 class TimezoneScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "TimezoneScreen"
 
@@ -56,7 +56,7 @@ class TimezoneScreen(JadeScreen, Adw.Bin):
         self.window = window
 
         builder = Gtk.Builder.new_from_resource(
-            "/al/getcryst/jadegui/pages/timezone/timezone_dialog.ui"
+            "/moe/ewe/os/jadegui/pages/timezone/timezone_dialog.ui"
         )
         self.search_dialog = builder.get_object("search_dialog")
 
@@ -150,12 +150,11 @@ class TimezoneScreen(JadeScreen, Adw.Bin):
         self.update_from_row(row)
 
         if row is not None or row is not self.timezone_search:
-            print(row.get_title())
             self.chosen_timezone = row
 
             self.set_valid(True)
         else:
-            print("row is none!!")
+            print("timezone row is none!")
 
     def search_timezones(self, *args):
         terms = self.timezone_entry_search.get_text()

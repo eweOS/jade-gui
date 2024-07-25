@@ -22,7 +22,7 @@ from gettext import gettext as _
 from jade_gui.widgets.variant import KeyboardVariant
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/widgets/layout.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/widgets/layout.ui")
 class KeyboardLayout(Adw.ExpanderRow):
     __gtype_name__ = "KeyboardLayout"
 
@@ -73,5 +73,4 @@ class KeyboardLayout(Adw.ExpanderRow):
         self.rows.append(row)
 
     def selected(self, widget):
-        print("selected")
         self.window.keyboard_screen.selected_layout(widget=widget, row=self)

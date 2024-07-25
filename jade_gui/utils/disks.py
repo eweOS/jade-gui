@@ -26,10 +26,9 @@ bash_bin = shutil.which("bash")
 
 
 def get_disks():
-    output = CommandUtils.check_output(["lsblk", "-pdo", "name"])
+    output = CommandUtils.check_output(["lsblk", "-pdno", "name"])
     output = output.split()
     output = [x for x in output if "zram" not in x]
-    output = [x for x in output if "NAME" not in x]
     output = [x for x in output if "loop" not in x]
     output = [x for x in output if "sr" not in x]
     output = [x for x in output if "fd" not in x]
@@ -37,9 +36,8 @@ def get_disks():
 
 
 def get_disk_size(disk: str) -> str:
-    output = CommandUtils.check_output(["lsblk", "-pdbo", "SIZE", disk])
+    output = CommandUtils.check_output(["lsblk", "-pdbno", "SIZE", disk])
     output = output.split()
-    output = [x for x in output if "SIZE" not in x]
 
     if len(output) == 0:
         print(f"No disk found with name: {disk}, assuming zero.")
@@ -47,7 +45,6 @@ def get_disk_size(disk: str) -> str:
     else:
         size = int(output[0])
 
-    print(disk + ":" + str(size))
     if size < 1000**3:
         size = size / 1000**2
         return f"{size: .2f} MB"
@@ -84,9 +81,10 @@ def get_disk_type(disk: str):
 
 
 def get_partitions():
-    output = CommandUtils.check_output(["blkid", "-o", "device"])
-    output = output.split()
+    output = CommandUtils.check_output(["sudo", "blkid"])
+    output = output.split("\n")
     output = [x for x in output if "zram" not in x]
     output = [x for x in output if "loop" not in x]
     output = [x for x in output if "sr" not in x]
+    output = [x.split(" ")[0][:-1] for x in output]
     return output

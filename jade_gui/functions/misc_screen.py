@@ -22,20 +22,19 @@ from gettext import gettext as _
 from jade_gui.classes.jade_screen import JadeScreen
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/misc_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/misc_screen.ui")
 class MiscScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "MiscScreen"
 
     hostname_entry = Gtk.Template.Child()
     #ipv_switch = Gtk.Template.Child()
-    timeshift_switch = Gtk.Template.Child()
-    zramd_switch = Gtk.Template.Child()
+    mimalloc_switch = Gtk.Template.Child()
+    flatpak_switch = Gtk.Template.Child()
 
-    hostname = "crystal"
+    hostname = "eweos"
     ipv_enabled = False
-    zramd_enabled = False
-    timeshift_enabled = True
-    zramd_enabled = True
+    mimalloc_enabled = True
+    flatpak_enabled = False
     move_to_summary = False
 
     def __init__(self, window, application, **kwargs):
@@ -47,5 +46,5 @@ class MiscScreen(JadeScreen, Adw.Bin):
     def on_complete(self, *_):
         self.hostname = self.hostname_entry.get_text()
         #self.ipv_enabled = self.ipv_switch.get_state()
-        self.zramd_enabled = self.zramd_switch.get_state()
-        self.timeshift_enabled = self.timeshift_switch.get_state()
+        self.mimalloc_enabled = self.mimalloc_switch.get_state()
+        self.flatpak_enabled = self.flatpak_switch.get_state()

@@ -27,7 +27,7 @@ from jade_gui.utils.gtk_helpers import set_list_text
 
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/locale/locale_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/locale/locale_screen.ui")
 class LocaleScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "LocaleScreen"
 
@@ -64,7 +64,7 @@ class LocaleScreen(JadeScreen, Adw.Bin):
         )
 
         builder = Gtk.Builder.new_from_resource(
-            "/al/getcryst/jadegui/pages/locale/locale_dialog.ui"
+            "/moe/ewe/os/jadegui/pages/locale/locale_dialog.ui"
         )
         self.search_dialog = builder.get_object("search_dialog")
 
@@ -84,7 +84,7 @@ class LocaleScreen(JadeScreen, Adw.Bin):
         try:
             self.chosen_locales = [self.window.timezone_screen.chosen_timezone.locale]
         except:
-            self.chosen_locales = ["en_US.UTF-8 UTF-U"]
+            self.chosen_locales = ["en_US.UTF-8 UTF-8"]
 
         en_US = LocaleEntry(
             page=self,
@@ -143,7 +143,9 @@ class LocaleScreen(JadeScreen, Adw.Bin):
     def update_locale_preview(self):
         locale.setlocale(locale.LC_ALL, self.chosen_locales[0][:-6])
         self.datespreview.set_label(time.strftime(locale.nl_langinfo(locale.D_T_FMT)))
-        self.numberpreview.set_label(locale.format_string("%.2f", 1234567.89, grouping=True)+"  -  "+locale.currency(1234.56, grouping=True))
+        # TODO: currency not available
+        #self.numberpreview.set_label(locale.format_string("%.2f", 1234567.89, grouping=True)+"  -  "+locale.currency(1234.56, grouping=True))
+        self.numberpreview.set_label(locale.format_string("%.2f", 1234567.89, grouping=True))
 
     def update_selected_locale_list(self, add=None, remove=None, main=None, row=None):
         if main:
@@ -167,7 +169,6 @@ class LocaleScreen(JadeScreen, Adw.Bin):
             else:
                 print("Tried to remove main locale!!")
                 return
-        print(self.chosen_locales)
 
     def select_locale(self, widget, row):
         self.search_dialog.hide()

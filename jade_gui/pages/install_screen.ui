@@ -14,25 +14,18 @@
             <property name="vexpand">true</property>
             <property
               name="title"
-              translatable="true">Installing Crystal</property>
+              translatable="true">Installing eweOS</property>
             <property
               name="description"
               translatable="true">This may take some time.</property>
             <property name="css-classes">jade_compact</property>
             <child>
-              <object class="GtkBox">
+              <object class="GtkBox" id="log_box">
                 <property name="margin-end">50</property>
                 <property name="margin-start">50</property>
                 <style>
                   <class name="card"/>
                 </style>
-                <child>
-                  <object class="GtkBox" id="log_box">
-                    <property name="halign">fill</property>
-                    <property name="valign">fill</property>
-                    <property name="margin-bottom">60</property>
-                  </object>
-                </child>
               </object>
             </child>
           </object>

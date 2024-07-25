@@ -117,7 +117,7 @@
                   translatable="true">Select Installation Disk</property>
                 <property
                   name="description"
-                  translatable="true">Select the disk you want to install Crystal Linux on. This will wipe the entire disk you selected.</property>
+                  translatable="true">Select the disk you want to install eweOS Linux on. This will wipe the entire disk you selected.</property>
                 <child>
                   <object class="AdwPreferencesPage">
                     <child>
@@ -137,8 +137,6 @@
                         </child>
                         <child>
                           <object class="GtkListBox" id="disk_list">
-                            <property
-                              name="activate-on-single-click">true</property>
                             <style>
                               <class name="boxed-list"/>
                             </style>

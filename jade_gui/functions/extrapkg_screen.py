@@ -1,4 +1,4 @@
-# desktop_screen.py
+# extrapkg_screen.py
 
 #
 # Copyright 2022 user
@@ -17,27 +17,34 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
-
 from gi.repository import Gtk, Adw
 from jade_gui.classes.jade_screen import JadeScreen
 
 
-@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/desktop_screen.ui")
-class DesktopScreen(JadeScreen, Adw.Bin):
-    __gtype_name__ = "DesktopScreen"
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/extrapkg_screen.ui")
+class ExtraPkgScreen(JadeScreen, Adw.Bin):
+    __gtype_name__ = "ExtraPkgScreen"
 
-    list_desktops = Gtk.Template.Child()
+    list_package_groups = Gtk.Template.Child()
+    chosen_packages= []
 
-    chosen_desktop = {}
     move_to_summary = False
 
     def __init__(self, window, application, **kwargs):
         super().__init__(**kwargs)
         self.window = window
+        self.set_valid(True)
 
-    def selected_desktop(self, widget, row):
+    def selected_package(self, widget, row):
         if row is not None:
-            self.chosen_desktop = row.entry
-            self.set_valid(True)
+            if not row.entry in self.chosen_packages:
+                self.chosen_packages.append(row.entry)
         else:
-            print("desktop option row is none!")
+            print("extrapkg row is none!")
+
+    def deselected_package(self, widget, row):
+        if row is not None:
+            if row.entry in self.chosen_packages:
+                self.chosen_packages.remove(row.entry)
+        else:
+            print("extrapkg row is none!")

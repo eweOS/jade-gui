@@ -24,7 +24,7 @@ from gettext import gettext as _
 from pytz import timezone
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/widgets/locale.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/widgets/locale.ui")
 class LocaleEntry(Adw.ActionRow):
     __gtype_name__ = "LocaleEntry"
 

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ExtraPkgScreen" parent="AdwBin">
+    <property name="hexpand">true</property>
+    <property name="vexpand">true</property>
+    <property name="margin-bottom">50</property>
+    <child>
+      <object class="GtkBox">
+        <property name="vexpand">true</property>
+        <property name="hexpand">true</property>
+        <property name="orientation">vertical</property>
+        <child>
+          <object class="AdwStatusPage" >
+            <property name="hexpand">true</property>
+            <property name="vexpand">true</property>
+            <property name="title" translatable="true">Extra Packages</property>
+            <property name="description" translatable="true">Packages choosed will be installed to your system</property>
+            <property name="css-classes">jade_compact</property>
+            <child>
+              <object class="AdwPreferencesPage" id="list_package_groups">
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </template>
+</interface>

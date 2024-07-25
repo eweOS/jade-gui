@@ -24,7 +24,7 @@ import re, subprocess, shutil
 from jade_gui.classes.jade_screen import JadeScreen
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/user_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/user_screen.ui")
 class UserScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "UserScreen"
 
@@ -56,8 +56,7 @@ class UserScreen(JadeScreen, Adw.Bin):
 
     def username_passes_regex(self, widget):
         input = self.username_entry.get_text()
-        print(input)
-        if not re.search("^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\$)$", input):
+        if not re.search("^[a-z_]([a-z0-9_-]{0,31}|[a-z0-9_-]{0,30}\\$)$", input):
             print("Invalid username!")
             self.username_entry.add_css_class("error")
             self.username_filled = False
@@ -70,9 +69,6 @@ class UserScreen(JadeScreen, Adw.Bin):
             self.username = input
 
     def enable_root_user(self, widget, switch_state):
-        print("root")
-        print(self.root_enabled)
-        print(switch_state)
         if switch_state == False and not self.sudo_enabled:
             self.root_enabled = switch_state
             self.sudo_enabled = not switch_state
@@ -81,9 +77,6 @@ class UserScreen(JadeScreen, Adw.Bin):
             self.root_enabled = switch_state
 
     def enable_sudo(self, widget, switch_state):
-        print("sudo")
-        print(self.root_enabled)
-        print(switch_state)
         if switch_state == False and not self.root_enabled:
             self.sudo_enabled = switch_state
             self.root_enabled = not switch_state
@@ -99,10 +92,7 @@ class UserScreen(JadeScreen, Adw.Bin):
             self.password_filled = True
             self.verify_continue()
             self.password_confirmation.remove_css_class("error")
-            self.password = self.encrypt_password(self.password_entry.get_text())
-            self.password = (
-                "'" + self.encrypt_password(self.password_entry.get_text()) + "'"
-            )
+            self.password = self.password_entry.get_text()
         else:
             self.password_filled = False
             self.verify_continue()

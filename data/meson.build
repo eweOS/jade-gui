@@ -1,6 +1,6 @@
 desktop_file = i18n.merge_file(
-  input: 'al.getcryst.jadegui.desktop.in',
-  output: 'al.getcryst.jadegui.desktop',
+  input: 'moe.ewe.os.jadegui.desktop.in',
+  output: 'moe.ewe.os.jadegui.desktop',
   type: 'desktop',
   po_dir: '../po',
   install: true,
@@ -15,8 +15,8 @@ if desktop_utils.found()
 endif
 
 appstream_file = i18n.merge_file(
-  input: 'al.getcryst.jadegui.appdata.xml.in',
-  output: 'al.getcryst.jadegui.appdata.xml',
+  input: 'moe.ewe.os.jadegui.appdata.xml.in',
+  output: 'moe.ewe.os.jadegui.appdata.xml',
   po_dir: '../po',
   install: true,
   install_dir: join_paths(get_option('datadir'), 'appdata')
@@ -29,7 +29,7 @@ if appstream_util.found()
   )
 endif
 
-install_data('al.getcryst.jadegui.gschema.xml',
+install_data('moe.ewe.os.jadegui.gschema.xml',
   install_dir: join_paths(get_option('datadir'), 'glib-2.0/schemas')
 )
 

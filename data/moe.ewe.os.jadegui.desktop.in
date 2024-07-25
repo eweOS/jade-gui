@@ -1,9 +1,9 @@
 [Desktop Entry]
-Name=Install Crystal Linux
+Name=Install eweOS
 
 Exec=jade-gui
 
-Icon=al.getcryst.jadegui
+Icon=moe.ewe.os.jadegui
 
 Terminal=false
 Type=Application

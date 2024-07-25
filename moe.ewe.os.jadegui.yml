@@ -1,4 +1,4 @@
-app-id: al.getcryst.jadegui
+app-id: moe.ewe.os.jadegui
 runtime: org.gnome.Platform
 runtime-version: '43'
 sdk: org.gnome.Sdk

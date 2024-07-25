@@ -33,9 +33,10 @@ class InstallPrefs:
         enable_sudo,
         disk,
         hostname,
-        timeshift_enabled,
-        zramd_enabled,
+        flatpak_enabled,
+        mimalloc_enabled,
         desktop,
+        extra_packages,
         partition_mode,
         partitions,
     ):
@@ -50,14 +51,15 @@ class InstallPrefs:
             self.disk = disk.disk
         else:
             self.disk = ""
-        self.hostname = hostname if len(hostname) != 0 else "crystal"
-        self.timeshift_enabled = timeshift_enabled
-        self.zramd_enabled = zramd_enabled
+        self.hostname = hostname if len(hostname) != 0 else "eweos"
+        self.flatpak_enabled = flatpak_enabled
+        self.mimalloc_enabled = mimalloc_enabled
         self.desktop = desktop
+        self.extra_packages = extra_packages
         self.partition_mode = partition_mode
         self.partitions = partitions
         self.is_efi = disks.get_uefi()
-        self.bootloader_type = "grub-efi" if self.is_efi else "grub-legacy"
+        self.bootloader_type = "limine-efi" if self.is_efi else "limine-legacy"
         self.bootloader_location = "/boot/efi/" if self.is_efi else self.disk
 
     def generate_json(self):
@@ -74,7 +76,6 @@ class InstallPrefs:
             },
             "locale": {
                 "locale": self.locale,
-                "keymap": self.layout.country_shorthand,
                 "timezone": self.timezone.region + "/" + self.timezone.location,
             },
             "networking": {"hostname": self.hostname, "ipv6": False},
@@ -88,17 +89,9 @@ class InstallPrefs:
             ],
             "rootpass": self.password,
             "desktop": self.desktop.lower(),
-            "timeshift": self.timeshift_enabled,
-            "extra_packages": ["firefox"],
+            "extra_packages": self.extra_packages,
             "flatpak": True,
-            "zramd": self.zramd_enabled,
-            "unakite": {
-                "enable": False,
-                "root": "/dev/null",
-                "oldroot": self.disk,
-                "efidir": "/dev/null",
-                "bootdev": "/dev/null",
-            },
             "kernel": "linux",
+            "mimalloc": True
         }
         return json.dumps(prefs)

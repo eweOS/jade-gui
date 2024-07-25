@@ -20,7 +20,7 @@
 from gi.repository import Gtk, GLib, Adw
 from gettext import gettext as _
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/widgets/selected_locale.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/widgets/selected_locale.ui")
 class SelectedLocale(Adw.ActionRow):
     __gtype_name__ = "SelectedLocale"
 

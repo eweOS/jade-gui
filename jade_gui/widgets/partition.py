@@ -22,7 +22,7 @@ from jade_gui.manualpartitioning import filesystems, mountpoints
 from jade_gui.classes.partition import Partition
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/widgets/partition.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/widgets/partition.ui")
 class PartitionEntry(Adw.ActionRow):
     __gtype_name__ = "PartitionEntry"
 

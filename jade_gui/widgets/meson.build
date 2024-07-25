@@ -11,5 +11,6 @@ jade_gui_sources = [
     'partition.py',
     'locale.py',
     'selected_locale.py',
+    'extrapkg.py',
 ]
 install_data(jade_gui_sources, install_dir: widgetsdir)

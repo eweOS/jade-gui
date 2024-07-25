@@ -63,7 +63,7 @@ class LogWindow(Adw.Window):
         clipboard.set_content(Gdk.ContentProvider.new_for_value(self.content))
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/finished_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/finished_screen.ui")
 class FinishedScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "FinishedScreen"
 
@@ -79,7 +79,7 @@ class FinishedScreen(JadeScreen, Adw.Bin):
         self.set_valid(True)
 
     def reboot(self, widget):
-        CommandUtils.run_command(["gnome-session-quit", "--reboot"])
+        CommandUtils.run_command(["sudo", "reboot"])
 
     def output(self, widget):
         with open("/tmp/jade-gui-output.txt", "r") as f:

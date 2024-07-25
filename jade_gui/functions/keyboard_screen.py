@@ -26,7 +26,7 @@ from gettext import gettext as _
 from jade_gui.utils.command import CommandUtils
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/keyboard/keyboard_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/keyboard/keyboard_screen.ui")
 class KeyboardScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "KeyboardScreen"
 
@@ -47,7 +47,7 @@ class KeyboardScreen(JadeScreen, Adw.Bin):
         self.window = window
 
         builder = Gtk.Builder.new_from_resource(
-            "/al/getcryst/jadegui/pages/keyboard/keyboard_dialog.ui"
+            "/moe/ewe/os/jadegui/pages/keyboard/keyboard_dialog.ui"
         )
         self.search_dialog = builder.get_object("search_dialog")
 

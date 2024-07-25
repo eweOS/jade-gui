@@ -26,7 +26,7 @@ from gi.repository import Gtk, Adw
 from gettext import gettext as _
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/summary_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/summary_screen.ui")
 class SummaryScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "SummaryScreen"
 
@@ -43,15 +43,17 @@ class SummaryScreen(JadeScreen, Adw.Bin):
     root_button = Gtk.Template.Child()
     desktop_label = Gtk.Template.Child()
     desktop_button = Gtk.Template.Child()
+    extrapkg_label = Gtk.Template.Child()
+    extrapkg_button = Gtk.Template.Child()
     partition_label = Gtk.Template.Child()
     partition_button = Gtk.Template.Child()
     uefi_label = Gtk.Template.Child()
-    timeshift_label = Gtk.Template.Child()
-    timeshift_button = Gtk.Template.Child()
-    zramd_label = Gtk.Template.Child()
-    zramd_button = Gtk.Template.Child()
+    mimalloc_label = Gtk.Template.Child()
+    mimalloc_button = Gtk.Template.Child()
+    flatpak_label = Gtk.Template.Child()
+    flatpak_button = Gtk.Template.Child()
+    export_config_button = Gtk.Template.Child()
     added_locales = []
-    # unakite_label = Gtk.Template.Child()
 
     def __init__(self, window, application, **kwargs):
         super().__init__(**kwargs)
@@ -87,14 +89,29 @@ class SummaryScreen(JadeScreen, Adw.Bin):
         self.desktop_button.connect(
             "clicked", self.window.show_page, self.window.desktop_screen
         )
+        self.extrapkg_button.connect(
+            "clicked", self.window.show_page, self.window.extrapkg_screen
+        )
         self.partition_button.connect(
             "clicked", self.window.show_page, self.window.partition_screen
         )
-        self.timeshift_button.connect(
+        self.flatpak_button.connect(
             "clicked", self.window.show_page, self.window.misc_screen
         )
-        self.zramd_button.connect(
+        self.mimalloc_button.connect(
             "clicked", self.window.show_page, self.window.misc_screen
+        )
+        self.export_config_button.connect(
+            "clicked", self.export_config
+        )
+        
+
+    def export_config(self, _):
+        prefs = self.window.summary_screen.installprefs.generate_json()
+        with open(os.getenv("HOME") + "/.config/jade.json", "w") as f:
+            f.write(prefs)
+        self.window.toast_overlay.add_toast(
+            Adw.Toast(title=f"Config file has been written to " + os.getenv("HOME") + "/.config/jade.json")
         )
 
     def on_show(self):
@@ -122,15 +139,19 @@ class SummaryScreen(JadeScreen, Adw.Bin):
         self.keyboard_label.set_title(self.window.keyboard_screen.variant.country)
         self.keyboard_label.set_subtitle(self.window.keyboard_screen.variant.variant)
 
-        self.username_label.set_title(self.window.user_screen.username)
-        self.sudo_label.set_title(
-            "sudo enabled" if self.window.user_screen.sudo_enabled else "sudo disabled"
+        self.username_label.set_title("Username: " + self.window.user_screen.username)
+        self.sudo_label.set_label(
+            "Enabled" if self.window.user_screen.sudo_enabled else "Disabled"
         )
-        self.root_label.set_title(
-            "root enabled" if self.window.user_screen.root_enabled else "root disabled"
+        self.sudo_label.set_css_classes(["success"] if self.window.user_screen.sudo_enabled else [])
+        self.root_label.set_label(
+            "Enabled" if self.window.user_screen.root_enabled else "Disabled"
         )
+        self.root_label.set_css_classes(["success"] if self.window.user_screen.root_enabled else [])
 
-        self.desktop_label.set_title(self.window.desktop_screen.chosen_desktop)
+        self.desktop_label.set_title(self.window.desktop_screen.chosen_desktop["title"])
+        self.desktop_label.set_subtitle(self.window.desktop_screen.chosen_desktop["subtitle"])
+        self.extrapkg_label.set_title(str(len(self.window.extrapkg_screen.chosen_packages)) + " Package(s) Chosen")
 
         if self.window.partition_mode == "Manual":
             self.partition_label.set_title("Manual partitioning selected")
@@ -144,17 +165,16 @@ class SummaryScreen(JadeScreen, Adw.Bin):
             )
         self.uefi_label.set_title("UEFI" if disks.get_uefi() else "Legacy BIOS")
 
-        self.timeshift_label.set_title(
-            "timeshift enabled"
-            if self.window.misc_screen.timeshift_enabled
-            else "timeshift disabled"
+        self.flatpak_label.set_title(
+            "flatpak Enabled"
+            if self.window.misc_screen.flatpak_enabled
+            else "flatpak Disabled"
         )
-        self.zramd_label.set_title(
-            "zramd enabled"
-            if self.window.misc_screen.zramd_enabled
-            else "zramd disabled"
+        self.mimalloc_label.set_title(
+            "mimalloc Enabled"
+            if self.window.misc_screen.mimalloc_enabled
+            else "mimalloc Disabled"
         )
-        # self.unakite_label.set_title("Unakite enabled "+"enabled" if self.window.misc_screen.)
 
         partitions = []
         for i in range(0, len(self.window.available_partitions)):
@@ -173,10 +193,10 @@ class SummaryScreen(JadeScreen, Adw.Bin):
             enable_sudo=self.window.user_screen.sudo_enabled,
             disk=self.window.partition_screen.selected_partition,
             hostname=self.window.misc_screen.hostname,
-            timeshift_enabled=self.window.misc_screen.timeshift_enabled,
-            zramd_enabled=self.window.misc_screen.zramd_enabled,
-            desktop=self.window.desktop_screen.chosen_desktop,
+            mimalloc_enabled=self.window.misc_screen.mimalloc_enabled,
+            flatpak_enabled=self.window.misc_screen.flatpak_enabled,
+            desktop=self.window.desktop_screen.chosen_desktop["entry"],
             partition_mode=self.window.partition_mode,
+            extra_packages=self.window.extrapkg_screen.chosen_packages,
             partitions=partitions,
         )
-        print(self.installprefs.generate_json())

@@ -17,11 +17,11 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: data/al.getcryst.jadegui.desktop.in:3
-msgid "Install Crystal Linux"
-msgstr "Install Crystal Linux"
+#: data/moe.ewe.os.jadegui.desktop.in:3
+msgid "Install eweOS"
+msgstr "Install eweOS"
 
-#: data/al.getcryst.jadegui.appdata.xml.in:7
+#: data/moe.ewe.os.jadegui.appdata.xml.in:7
 msgid "No description"
 msgstr "No description"
 
@@ -30,12 +30,12 @@ msgid "About Jade GUI"
 msgstr "About Jade GUI"
 
 #: src/window.ui:85
-msgid "Welcome to Crystal Linux"
-msgstr "Welcome to Crystal Linux"
+msgid "Welcome to eweOS"
+msgstr "Welcome to eweOS"
 
 #: src/window.ui:86
-msgid "Press Start to start installing Crystal Linux!"
-msgstr "Press Start to start installing Crystal Linux!"
+msgid "Press Start to start installing eweOS!"
+msgstr "Press Start to start installing eweOS!"
 
 #: src/pages/desktop_screen.ui:13
 msgid "Select Desktop"
@@ -56,16 +56,16 @@ msgid "Installation Completed!"
 msgstr "Installation Completed!"
 
 #: src/pages/finished_screen.ui:16
-msgid "Reboot the device to start using Crystal Linux!"
-msgstr "Reboot the device to start using Crystal Linux!"
+msgid "Reboot the device to start using eweOS!"
+msgstr "Reboot the device to start using eweOS!"
 
 #: src/pages/finished_screen.ui:28
 msgid "Reboot"
 msgstr "Reboot"
 
 #: src/pages/install_screen.ui:15
-msgid "Installing Crystal"
-msgstr "Installing Crystal"
+msgid "Installing eweOS"
+msgstr "Installing eweOS"
 
 #: src/pages/install_screen.ui:16
 msgid "This may take some time"
@@ -100,16 +100,16 @@ msgid "This can fix IPv6 connectivity issues with some ISPs."
 msgstr "This can fix IPv6 connectivity issues with some ISPs."
 
 #: src/pages/misc_screen.ui:45
-msgid "Timeshift"
-msgstr "Timeshift"
+msgid "mimalloc"
+msgstr "mimalloc"
 
 #: src/pages/misc_screen.ui:46
 msgid "Support snapshots as a means to roll back to earlier states of the system."
 msgstr "Support snapshots as a means to roll back to earlier states of the system."
 
 #: src/pages/misc_screen.ui:57
-msgid "Zramd"
-msgstr "Zramd"
+msgid "flatpak"
+msgstr "flatpak"
 
 #: src/pages/misc_screen.ui:58
 msgid "Creates a compressed area of Swap in RAM."
@@ -149,10 +149,10 @@ msgstr "Select Installation Disk"
 
 #: src/pages/partition_screen.ui:97
 msgid ""
-"Select the disk you want to install Crystal Linux on. This will wipe the "
+"Select the disk you want to install eweOS on. This will wipe the "
 "entire disk you selected."
 msgstr ""
-"Select the disk you want to install Crystal Linux on. This will wipe the "
+"Select the disk you want to install eweOS on. This will wipe the "
 "entire disk you selected."
 
 #: src/pages/partition_screen.ui:107
@@ -224,12 +224,12 @@ msgid "ipv6 enabled/disabled"
 msgstr "ipv6 enabled/disabled"
 
 #: src/pages/summary_screen.ui:196
-msgid "timeshift enabled/disabled"
-msgstr "timeshift enabled/disabled"
+msgid "flatpak Enabled/Disabled"
+msgstr "flatpak Enabled/Disabled"
 
 #: src/pages/summary_screen.ui:208
-msgid "zramd enabled/disabled"
-msgstr "zramd enabled/disabled"
+msgid "mimalloc Enabled/Disabled"
+msgstr "mimalloc Enabled/Disabled"
 
 #: src/pages/summary_screen.ui:238 src/pages/timezone_screen.ui:59
 #: src/pages/user_screen.ui:83

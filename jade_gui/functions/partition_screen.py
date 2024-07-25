@@ -26,7 +26,7 @@ from jade_gui.classes.partition import Partition
 from jade_gui.classes.jade_screen import JadeScreen
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/partition_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/partition_screen.ui")
 class PartitionScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "PartitionScreen"
 
@@ -46,7 +46,7 @@ class PartitionScreen(JadeScreen, Adw.Bin):
     def __init__(self, window, application, **kwargs):
         super().__init__(**kwargs)
         self.window = window
-        self.disk_list.connect("row_selected", self.row_selected)
+        #self.disk_list.connect("row_selected", self.row_selected)
         self.manual_partitioning.connect("clicked", self.switch_manual_partitioning)
         self.reload_partitions.connect("clicked", self.check_partitions)
         self.automatic_partitioning.connect(
@@ -56,14 +56,14 @@ class PartitionScreen(JadeScreen, Adw.Bin):
         self.open_gparted.connect("clicked", self.gparted)
 
     def gparted(self, widget):
-        CommandUtils.run_command(["pkexec", "gparted"])
+        # TODO: no pkexec
+        CommandUtils.run_command(["sudo", "-EH", "gparted"])
 
     def bash(self, widget):
-        CommandUtils.run_command(["kgx", "-e", "/usr/bin/bash"])
+        CommandUtils.run_command(["sudo", "-EH", "foot"])
 
     def check_partitions(self, widget):
         self.partition_list.select_all()
-        print(self.partition_list.get_row_at_index(2))
         for i in range(0, len(self.window.available_partitions)):
             self.partition_list.remove(self.partition_list.get_row_at_index(0))
         self.available_partitions = disks.get_partitions()
@@ -83,6 +83,10 @@ class PartitionScreen(JadeScreen, Adw.Bin):
             )
 
     def switch_automatic_partitioning(self, widget):
+        self.disk_list.unselect_all()
+        if self.selected_partition:
+            self.selected_partition.select_button.set_active(False)
+        self.selected_partition = None
         self.automatic_partitioning_page.set_visible(True)
         self.manual_partitioning_page.set_visible(False)
         self.set_valid(False)
@@ -96,10 +100,7 @@ class PartitionScreen(JadeScreen, Adw.Bin):
 
     def row_selected(self, widget, row):
         if row is not None:
-            print(row.get_title())
-            row.select_button.set_active(True)
             self.selected_partition = row
-
             self.set_valid(True)
         else:
-            print("ERROR: invalid row slected")
+            print("ERROR: invalid row selected")

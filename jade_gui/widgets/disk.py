@@ -21,7 +21,7 @@ from gi.repository import Gtk, GLib, Adw
 from gettext import gettext as _
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/widgets/disk.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/widgets/disk.ui")
 class DiskEntry(Adw.ActionRow):
     __gtype_name__ = "DiskEntry"
 
@@ -53,9 +53,9 @@ class DiskEntry(Adw.ActionRow):
         self.valid = valid
 
     def toggled_cb(self, check_button):
-        if not check_button.props.active:
+        if check_button.props.active:
             row = check_button.get_ancestor(Gtk.ListBoxRow)
             row.activate()
-        self.window.partition_screen.selected_partition = self
-        self.window.partition_screen.disk_list.select_row(self)
-        self.valid(True)
+            self.window.partition_screen.disk_list.select_row(self)
+            self.window.partition_screen.row_selected(self, row)
+            self.valid(True)

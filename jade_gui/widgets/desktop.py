@@ -21,16 +21,20 @@ from gi.repository import Gtk, GLib, Adw
 from gettext import gettext as _
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/widgets/desktop.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/widgets/desktop.ui")
 class DesktopEntry(Adw.ActionRow):
     __gtype_name__ = "DesktopEntry"
 
     select_button = Gtk.Template.Child()
+    
+    entry = {}
 
     def __init__(self, window, desktop, button_group, application, **kwargs):
         super().__init__(**kwargs)
         self.window = window
-        self.set_title(desktop)
+        self.set_title(desktop["title"])
+        self.set_subtitle(desktop["subtitle"])
+        self.entry = desktop
         self.select_button.set_group(button_group)
         self.select_button.connect("toggled", self.toggled_cb)
 

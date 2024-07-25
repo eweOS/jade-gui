@@ -26,7 +26,7 @@ from jade_gui.classes.jade_screen import JadeScreen
 import time
 
 
-@Gtk.Template(resource_path="/al/getcryst/jadegui/pages/install_screen.ui")
+@Gtk.Template(resource_path="/moe/ewe/os/jadegui/pages/install_screen.ui")
 class InstallScreen(JadeScreen, Adw.Bin):
     __gtype_name__ = "InstallScreen"
 
@@ -40,7 +40,8 @@ class InstallScreen(JadeScreen, Adw.Bin):
         self.vte_instance = Vte.Terminal()
         self.vte_instance.set_cursor_blink_mode(Vte.CursorBlinkMode.ON)
         self.vte_instance.set_mouse_autohide(True)
-        self.vte_instance.set_font(Pango.FontDescription("Source Code Pro Regular 12"))
+        self.vte_instance.set_font(Pango.FontDescription("DejaVu Sans Mono 11"))
+        self.vte_instance.set_hexpand(True)
         self.log_box.append(self.vte_instance)
         self.vte_instance.connect("child-exited", self.on_vte_child_exited)
 
@@ -66,5 +67,7 @@ class InstallScreen(JadeScreen, Adw.Bin):
             None,
         )
 
-    def on_vte_child_exited(self, *args):
+    def on_vte_child_exited(self, _, status):
+        if status != 0:
+            self.window.next_button.set_css_classes(["destructive-action"])
         self.set_valid(True)

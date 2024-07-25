@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<interface>
+  <requires lib="gtk" version="4.0"/>
+  <template class="ExtraPkgGroup" parent="AdwPreferencesGroup">
+    <property name="title">ExtraPkgGroup</property>
+    <child>
+      <object class="GtkListBox" id="list_packages">
+        <property name="hexpand">true</property>
+        <property name="vexpand">true</property>
+        <property name="selection-mode">none</property>
+        <style>
+          <class name="boxed-list"/>
+        </style>
+      </object>
+    </child>
+  </template>
+</interface>

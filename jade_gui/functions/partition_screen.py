@@ -99,8 +99,8 @@ class PartitionScreen(JadeScreen, Adw.Bin):
         self.window.partition_mode = "Manual"
 
     def row_selected(self, widget, row):
+        self.selected_partition = row
         if row is not None:
-            self.selected_partition = row
             self.set_valid(True)
         else:
-            print("ERROR: invalid row selected")
+            self.set_valid(False)
